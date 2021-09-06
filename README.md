@@ -9,6 +9,8 @@
 <p><strong>Create a settings file for both networks</strong> <br />nano kichain_config.json<br />{<br />"chain-id": "kichain-t-4",<br />"rpc-addr": "http://127.0.0.1:26657",<br />"account-prefix": "tki",<br />"gas-adjustment": 1.5,<br />"gas-prices": "0.025utki",<br />"trusting-period": "48h"<br />}</p>
 <p>nano rizon_config.json</p>
 <p>{<br />"chain-id": "groot-011",<br />"rpc-addr": "http://wan_ip:26657",<br />"account-prefix": "rizon",<br />"gas-adjustment": 1.5,<br />"gas-prices": "0.025uatolo",<br />"trusting-period": "48h"<br />}</p>
+<p><strong>Now parse these settings into the config of the relay:</strong></p>
+<p>rly chains add -f rizon_config.json<br />rly chains add -f kichain_config.json<br />cd</p>
 <p><strong>Configure a settings file for Rizon network</strong><br />nano ~/.rizon/config/config.toml<br /><br />We need to change [rpc] section<br />laddr = "tcp://0.0.0.0:26657"<br /><br /><strong>We need to create new wallets:</strong><br />rly keys add groot-011 wallet_name<br />rly keys add kichain-t-4 wallet_name</p>
 <p><strong>So you can restore your wallets, use commands:</strong><br />rly keys restore groot-011 wallet_name "mnemonic"<br />rly keys restore kichain-t-4 wallet_name "mnemonic"</p>
 <p><strong>Add our keys to the relay config:</strong><br />rly chains edit groot-011 key wallet_name<br />rly chains edit kichain-t-4 key wallet_name<br /><br /><strong>Change the timeout in config to 30 sec:</strong><br />nano ~/.relayer/config/config.yaml<br />timeout: 30s</p>
